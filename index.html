@@ -310,7 +310,7 @@ Modified by Lewis Lebentz too. (https://lew.im).
 	function getBucket( marker, filesOrFolders )
 	{
 		$.ajax( {
-			url: 'http://cors.io/?' + bucketUrl + ( marker ? '?marker=' + encodeURIComponent( marker ) : '' ),
+			url: 'https://cors.io/?' + bucketUrl + ( marker ? '?marker=' + encodeURIComponent( marker ) : '' ),
 			success: function( xhr ) { onAjaxSuccess( xhr, filesOrFolders, marker ); }
 		} );
 	}

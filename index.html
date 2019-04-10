@@ -29,7 +29,7 @@ Modified by Lewis Lebentz too. (https://lew.im).
 <meta charset="utf-8">
 <title>Loading...</title>
 <!-- <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"> -->
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<!-- <link rel="icon" href="/favicon.ico" type="image/x-icon"> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <style>
 .hide-while-loading {
@@ -51,6 +51,21 @@ Modified by Lewis Lebentz too. (https://lew.im).
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.min.js"></script>
 
+	<script>
+		function clipboardCopy(el) {
+
+			var link_element = el.getElementsByClassName("build-version")[0];
+
+			var build_url = link_element.href;
+			var build_ver = link_element.text;
+
+			var copyText = document.getElementById("copyText");
+
+			copyText.value = "  url: " + build_url + "\n  version: " + build_ver;
+			copyText.select();
+			document.execCommand("copy");
+		}
+	</script>
 </head>
 <body>
 
@@ -65,11 +80,13 @@ Modified by Lewis Lebentz too. (https://lew.im).
 				<th>Created On</th>
 				<th>Size</th>
 				<th>File Type</th>
+				<th>Copy to Clipboard</th>
 			</tr>
 		</thead>
 		<tbody id="tbody-content">
 		</tbody>
 	</table>
+	<textarea style = "display:none" type="text" value="" class="hide-while-loading" id="copyText"></textarea>
 </div>
 
 <script id="file-or-folder" type="text/x-handlebars-template">
@@ -84,13 +101,18 @@ Modified by Lewis Lebentz too. (https://lew.im).
 			<td>
 				<i class="glyphicon glyphicon-file i-file-or-folder" style="margin-left: calc( ( {{level}} * 16px ) + 4px );"></i>
 				<!-- <a href="{{url}}">{{simpleFilename}}</a> -->
-				<a href="{{url}}">{{version}}</a>
+				<a class="build-version" href="{{url}}">{{version}}</a>
 			</td>
 		{{/if}}
 		<!-- <td>{{version}}</td> -->
 		<td>{{friendlyLastModified}}</td>
 		<td>{{friendlySize}}</td>
 		<td>{{type}}</td>
+		<td>
+			<a onclick="clipboardCopy(this.parentElement.parentElement)">
+				<i class="glyphicon glyphicon-file i-file-or-folder"></i>
+			</a>
+		</td>
 	</tr>
 	{{#if isFolder}}
 		{{{contents}}}

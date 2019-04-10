@@ -28,11 +28,12 @@ Modified by Lewis Lebentz too. (https://lew.im).
 -->
 <meta charset="utf-8">
 <title>Loading...</title>
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<!-- <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"> -->
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <style>
 .hide-while-loading {
+	dispaly: none;
 }
 .i-expand-collapse {
 	opacity: 0.3;
@@ -59,7 +60,8 @@ Modified by Lewis Lebentz too. (https://lew.im).
 	<table class="hide-while-loading table table-striped">
 		<thead>
 			<tr>
-				<th>Filename</th>
+				<!-- <th>Filename</th> -->
+				<th>Version</th>
 				<th>Created On</th>
 				<th>Size</th>
 				<th>File Type</th>
@@ -81,9 +83,11 @@ Modified by Lewis Lebentz too. (https://lew.im).
 		{{else}}
 			<td>
 				<i class="glyphicon glyphicon-file i-file-or-folder" style="margin-left: calc( ( {{level}} * 16px ) + 4px );"></i>
-				<a href="{{url}}">{{simpleFilename}}</a>
+				<!-- <a href="{{url}}">{{simpleFilename}}</a> -->
+				<a href="{{url}}">{{version}}</a>
 			</td>
 		{{/if}}
+		<!-- <td>{{version}}</td> -->
 		<td>{{friendlyLastModified}}</td>
 		<td>{{friendlySize}}</td>
 		<td>{{type}}</td>
@@ -139,6 +143,7 @@ Modified by Lewis Lebentz too. (https://lew.im).
 		// init logic
 		self.isFolder = FOLDER_PATTERN.test( self.key );
 		self.filename = self.isFolder ? self.key.replace( FOLDER_PATTERN, '' ) : self.key;
+		self.version = self.isFolder ? '' : key.match(/^capi-([\d.]+-rc\.\d+)-.+\.tgz/)[1];
 
 		var levels = self.filename.split('/');
 		var extension = self.filename.split('.').slice( -1 )[0];

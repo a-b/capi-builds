@@ -226,6 +226,9 @@ Modified by Lewis Lebentz too. (https://lew.im).
 
 	function onAjaxSuccess( xml, filesOrFolders, marker )
 	{
+		parser = new DOMParser();
+		xmlDoc = parser.parseFromString(xml,"text/xml");
+		
 		var listBucketResult = $(xml).find('ListBucketResult');
 
 		// set a reasonable title instead of "Bucket loading"
